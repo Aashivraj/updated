@@ -1,0 +1,181 @@
+<!-- register.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div id="layout-wrapper" class="container-fluid">
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center">
+                    <h4 class="card-title">Register</h4>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- First Name -->
+                    <div class="mb-6">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" name="first_name" class="form-control" id="first_name" required>
+                        {% if form.first_name.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.first_name.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="mb-6">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" name="last_name" class="form-control" id="last_name"  required>
+                        {% if form.last_name.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.last_name.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Username -->
+                    <div class="mb-6">
+
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="username" required>
+                        {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-6">
+                    
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" required>
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select name="gender" class="form-control" id="gender" required>
+                            <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
+                            <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female</option>
+                            <option value="O" {% if form.gender.value == 'O' %}selected{% endif %}>Other</option>
+                        </select>
+                        {% if form.gender.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.gender.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="mb-6">
+
+                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth"  required>
+                        {% if form.date_of_birth.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.date_of_birth.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-6">
+                    
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" required>
+                        {% if form.password.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mb-6">
+
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <input type="password" name="confirm_password" class="form-control" id="confirm_password" required>
+                    </div>
+
+                    <!-- Parent Name -->
+                    <div class="mb-6">
+                    
+                        <label for="parent_name" class="form-label">Parent Name</label>
+                        <input type="text" name="parent_name" class="form-control" id="parent_name"  required>
+                    </div>
+
+                    <!-- Parent Surname -->
+                    <div class="mb-6">
+                    
+                        <label for="parent_surname" class="form-label">Parent Surname</label>
+                        <input type="text" name="parent_surname" class="form-control" id="parent_surname" required>
+                    </div>
+
+                    <!-- Parent Phone Number -->
+                    <div class="mb-6">
+
+                        <label for="parent_phone_number" class="form-label">Parent Phone Number</label>
+                        <input type="text" name="parent_phone_number" class="form-control" id="parent_phone_number"  required>
+                    </div>
+
+                    <!-- School/College/Employment -->
+                    <div class="mb-6">
+
+                        <label for="school_college_or_employment" class="form-label">School/College/Employment</label>
+                        <input type="text" name="school_college_or_employment" class="form-control" id="school_college_or_employment"  required>
+                    </div>
+
+                    <!-- Diversity -->
+                    <div class="mb-6">
+
+                        <label for="diversity" class="form-label">Diversity</label>
+                        <input type="text" name="diversity" class="form-control" id="diversity"  required>
+                    </div>
+
+                    <!-- Photo Consent -->
+                    <div class="mb-6">
+ 
+                        <label for="photo_consent" class="form-label">Photo Consent</label>
+                        <input type="checkbox" name="photo_consent" class="form-check-input" id="photo_consent" {% if form.photo_consent.value %}checked{% endif %}>
+                    </div>
+
+                    <!-- Terms & Conditions and GDPR -->
+                    <div class="mb-6">
+
+                        <label for="term_and_condition_gdpr" class="form-label">Agree to Terms and Conditions & GDPR</label>
+                        <input type="checkbox" name="term_and_condition_gdpr" class="form-check-input" id="term_and_condition_gdpr" {% if form.term_and_condition_gdpr.value %}checked{% endif %} required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid mb-6">
+                        <button type="submit" class="btn btn-success">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
