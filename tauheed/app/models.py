@@ -42,6 +42,7 @@ class UserData(AbstractBaseUser, PermissionsMixin):
         ('F', 'Female'),
         ('O', 'Other'),
     )
+    
 
     USER_TYPE_CHOICES = (
         ('ADMIN', 'Admin'),
@@ -55,6 +56,7 @@ class UserData(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=50, unique=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=1)
     user_type = models.CharField(choices=USER_TYPE_CHOICES, max_length=25, default='USER')
+
     date_of_birth = models.DateField(blank=True, null=True)
     parent_name = models.CharField(max_length=50)
     parent_surname = models.CharField(max_length=100)
@@ -63,6 +65,7 @@ class UserData(AbstractBaseUser, PermissionsMixin):
     diversity = models.CharField(max_length=100)
     photo_consent = models.BooleanField(default=False)
     term_and_condition_gdpr = models.BooleanField(default=False)
+    discount_card = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False) 
     is_superuser = models.BooleanField(default=False)  
@@ -105,6 +108,13 @@ class Sport(models.Model):
 
 
 class BookingHistory(models.Model):
+    PAYMENT_METHODS = (
+        ('1', 'Cash'),
+        ('2', 'Credit Card'),
+        ('3', "Wep"),
+    )   
+    
+    payment_methods = models.CharField(choices=PAYMENT_METHODS, max_length=25)
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name="bookings")
     booking_date = models.DateField()
     slot_time = models.DateTimeField(null=True, blank=True)
@@ -115,3 +125,6 @@ class BookingHistory(models.Model):
 
     class Meta:
         db_table = "booking_history"
+        
+        
+        

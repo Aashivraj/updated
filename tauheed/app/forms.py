@@ -11,7 +11,7 @@ class UserRegistrationForm(forms.ModelForm):
         fields = [
             'first_name', 'last_name', 'username', 'email', 'gender', 'date_of_birth', 
             'password', 'parent_name', 'parent_phone_number', 'parent_surname', 
-            'school_college_or_employment', 'diversity', 'photo_consent', 'term_and_condition_gdpr'
+            'school_college_or_employment', 'diversity', 'photo_consent', 'term_and_condition_gdpr','discount_card'
         ]
 
     password = forms.CharField(widget=forms.PasswordInput())

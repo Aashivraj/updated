@@ -33,14 +33,15 @@ def login_view(request):
                 user = UserData.objects.get(username=username)
             except UserData.DoesNotExist:
                 user = None
+                
 
             if user and check_password(password, user.password):
                 if user.is_active:
                     login(request, user)
-                    if user.user_type == 'USER':
-                        return redirect('frontend_dashboard')
+                    if request.user.is_superuser:
+                        return redirect('dashboard')  # Redirect superusers
                     else:
-                        return redirect('dashboard')
+                        return redirect('frontend_dashboard')  # Redirect regular users
                 else:
                     messages.error(request, "Account is disabled.")
             else:

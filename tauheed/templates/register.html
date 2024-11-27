@@ -169,6 +169,13 @@
                         <input type="checkbox" name="term_and_condition_gdpr" class="form-check-input" id="term_and_condition_gdpr" {% if form.term_and_condition_gdpr.value %}checked{% endif %} required>
                     </div>
 
+                    <!-- Discount Card -->
+                    <div class="mb-6">
+
+                        <label for="discount_card" class="form-label">Avail Discount card</label>
+                        <input type="checkbox" name="discount_card" class="form-check-input" id="discount_card" {% if form.discount_card.value %}checked{% endif %} required>
+                    </div>
+
                     <!-- Submit Button -->
                     <div class="d-grid mb-6">
                         <button type="submit" class="btn btn-success">Register</button>
