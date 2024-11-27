@@ -53,7 +53,9 @@
   <!-- Initialize DataTable -->
   <script>
     $(document).ready(function() {
-        $('#userTable').DataTable();
+        $('#userTable').DataTable({
+          searching: false,
+        });
     });
   </script>
 

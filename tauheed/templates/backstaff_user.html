@@ -72,65 +72,63 @@
             <div class="container-fluid">
                 
 
-                <!-- Add Back Office Staff Form -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0">Add Back Office Staff</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <form method="POST" action="{% url 'add_staff' %}">
-                                    {% csrf_token %}
-                                    <div class="mb-3">
-                                        <label for="id_first_name" class="form-label">First Name:</label>
-                                        {{ form.first_name }}
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="id_last_name" class="form-label">Last Name:</label>
-                                        {{ form.last_name }}
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="id_username" class="form-label">Username:</label>
-                                        {{ form.username }}
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="id_email" class="form-label">Email:</label>
-                                        {{ form.email }}
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="id_password" class="form-label">Password:</label>
-                                        {{ form.password }}
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="id_is_active" class="form-label">Is Active:</label>
-                                        {{ form.is_active }}
-                                    </div>
-
-                                    <input type="hidden" name="role" value="back_office_user">
-
-                                    <div class="d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary">Add Staff</button>
-                                    </div>
-                                </form>
-
-                                {% comment %} {% if messages %}
-                                    <div class="mt-3">
-                                        <ul class="list-group">
-                                            {% for message in messages %}
-                                                <li class="list-group-item {{ message.tags }}">{{ message }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %} {% endcomment %}
+                  <!-- Content specific to the User List page -->
+                  <div class="container-fluid">
+                    <h2 class="mt-4">Back Office Staff Users</h2>
+                
+                    <!-- Filter Form -->
+                    <form method="get">
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <label for="first_name">First Name</label>
+                                <input type="text" name="first_name" class="form-control" placeholder="" value="{{ request.GET.first_name }}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="first_name">Last Name</label>
+                                <input type="text" name="last_name" class="form-control" placeholder="" value="{{ request.GET.last_name }}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="first_name">Email</label>
+                                <input type="text" name="email" class="form-control" placeholder="" value="{{ request.GET.email }}">
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="{% url 'backstaff_user_list' %}" class="btn btn-secondary">Reset</a>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                
+                    <!-- User Table -->
+                    <table id="userTable" class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Role</th>
+                                <th>Date of Birth</th>
+                                <th>Parent Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in filter.qs %}
+                                <tr>
+                                    <td>{{ user.first_name }}</td>
+                                    <td>{{ user.last_name }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.gender }}</td>
+                                    <td>{{ user.get_user_type_display }}</td>
+                                    <td>{{ user.date_of_birth }}</td>
+                                    <td>{{ user.parent_name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
+                
 
             </div>
         </div>

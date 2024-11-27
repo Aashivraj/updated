@@ -1,6 +1,6 @@
-import re
 from django import forms
 from .models import *
+from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -48,9 +48,20 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=50)
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(max_length=100, required=True)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not UserData.objects.filter(username=username).exists():
+            raise ValidationError("Username does not exist.")
+        return username
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if not password:
+            raise ValidationError("Password is required.")
+        return password
 
 class AddStaffForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Password")

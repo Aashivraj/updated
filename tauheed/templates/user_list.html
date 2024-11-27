@@ -9,16 +9,16 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{% static 'images/avatar-4.jpg' %}"
+                    {% comment %} <img class="rounded-circle header-profile-user" src="{% static 'images/avatar-4.jpg' %}"
                         alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Marcus</span>
                     <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#"><i
+                {% endcomment %}</button> 
+                {% comment %} <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="{% url "logout" %}"><i
                             class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span
                             class="align-middle">Sign out</span></a>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </header>
@@ -39,21 +39,27 @@
             <div id="sidebar-menu">
                 <ul class="metismenu list-unstyled" id="side-menu">
                     <li>
-                        <a href="index.html" class="waves-effect">
+                        <a href="{% url "dashboard" %}" class="waves-effect">
                             <i class="uil-home-alt"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="{% url "add_staff" %}" class="waves-effect">
                             <i class="uil-calendar-alt"></i>
-                            <span>Menu Item 1</span>
+                            <span>Add Staff</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="{% url "user_list" %}" class="waves-effect">
                             <i class="uil-comments-alt"></i>
-                            <span>Menu Item 2</span>
+                            <span>User List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url "backstaff_user_list" %}" class="waves-effect">
+                            <i class="uil-calendar-alt"></i>
+                            <span>Back Ofice Staff List</span>
                         </a>
                     </li>
                 </ul>
@@ -67,38 +73,61 @@
                 
 
                   <!-- Content specific to the User List page -->
-  <div class="container-fluid">
-    <h2 class="mt-4">Registered Users</h2>
-
-    <table id="userTable" class="table table-striped">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Gender</th>
-                <th>Role</th>
-                <th>Date of Birth</th>
-                <th>Parent Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.first_name }}</td>
-                    <td>{{ user.last_name }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.gender }}</td>
-                    <td>{{ user.get_user_type_display }}</td>
-                    <td>{{ user.date_of_birth }}</td>
-                    <td>{{ user.parent_name }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-  </div>
+                  <div class="container-fluid">
+                    <h2 class="mt-4">Registered Users</h2>
+                
+                   <!-- Filter Form -->
+                   <form method="get">
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <label for="first_name">First Name</label>
+                            <input type="text" name="first_name" class="form-control" placeholder="" value="{{ request.GET.first_name }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="first_name">Last Name</label>
+                            <input type="text" name="last_name" class="form-control" placeholder="" value="{{ request.GET.last_name }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="first_name">Email</label>
+                            <input type="text" name="email" class="form-control" placeholder="" value="{{ request.GET.email }}">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="{% url 'user_list' %}" class="btn btn-secondary">Reset</a>
+                            </div>
+                        </div>
+                    </form>
+                
+                    <!-- User Table -->
+                    <table id="userTable" class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Role</th>
+                                <th>Date of Birth</th>
+                                <th>Parent Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in filter.qs %}
+                                <tr>
+                                    <td>{{ user.first_name }}</td>
+                                    <td>{{ user.last_name }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.gender }}</td>
+                                    <td>{{ user.get_user_type_display }}</td>
+                                    <td>{{ user.date_of_birth }}</td>
+                                    <td>{{ user.parent_name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
