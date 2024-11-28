@@ -2,66 +2,55 @@ from django import forms
 from .models import *
 from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.forms import UserCreationForm
 
 
 
-class UserRegistrationForm(forms.ModelForm):
+from django import forms
+from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
+from .models import UserData  # Assuming your model is UserData
+
+class UserRegistrationForm(UserCreationForm):
+    password1 = forms.CharField(widget=forms.PasswordInput(), label="Password")
+    password2 = forms.CharField(widget=forms.PasswordInput(), label="Confirm Password")
+    
     class Meta:
         model = UserData
         fields = [
-            'first_name', 'last_name', 'username', 'email', 'gender', 'date_of_birth', 
-            'password', 'parent_name', 'parent_phone_number', 'parent_surname', 
-            'school_college_or_employment', 'diversity', 'photo_consent', 'term_and_condition_gdpr','discount_card'
+            'first_name', 'last_name', 'username', 'email', 'gender', 'date_of_birth',
+            'parent_name', 'parent_surname', 'parent_phone_number', 'school_college_or_employment',
+            'diversity', 'photo_consent', 'term_and_condition_gdpr', 'password1', 'password2'
         ]
-
-    password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password = forms.CharField(widget=forms.PasswordInput(), label="Confirm Password")
-
+    
     def clean(self):
         cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
+
+        # Check for empty required fields
+        required_fields = [
+            'first_name', 'last_name', 'username', 'email', 'gender', 'date_of_birth',
+            'parent_name', 'parent_surname', 'parent_phone_number', 'school_college_or_employment',
+            'diversity', 'photo_consent', 'term_and_condition_gdpr'
+        ]
         
-        if password != confirm_password:
-            raise forms.ValidationError("Passwords do not match.")
+        for field in required_fields:
+            value = cleaned_data.get(field)
+            if not value:
+                self.add_error(field, f"{field.replace('_', ' ').capitalize()} cannot be empty.")
+        
+        # Password validation
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', "Passwords do not match.")
         
         return cleaned_data
-    def save(self, commit=True):
-        # Get the cleaned data from the form
-        cleaned_data = self.cleaned_data
-        password = cleaned_data.get('password')
 
-        # Hash the password before saving it
-        cleaned_data['password'] = make_password(password)
-
-        # Create a UserData instance with the cleaned data
-        user = super().save(commit=False)
-
-        # Set the hashed password to the user instance
-        user.password = cleaned_data['password']
-
-        # Save the user instance
-        if commit:
-            user.save()
-
-        return user
-
-
+# Login form
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=100, required=True)
-    password = forms.CharField(widget=forms.PasswordInput, required=True)
+    username = forms.CharField(max_length=150, label='Username')
+    password = forms.CharField(widget=forms.PasswordInput(), label='Password')
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if not UserData.objects.filter(username=username).exists():
-            raise ValidationError("Username does not exist.")
-        return username
-
-    def clean_password(self):
-        password = self.cleaned_data.get('password')
-        if not password:
-            raise ValidationError("Password is required.")
-        return password
 
 class AddStaffForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
