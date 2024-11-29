@@ -2,20 +2,6 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager, Permission
 from django.db import models
 from django.utils import timezone
 
-# class BackOfficeStaff(models.Model):
-#     first_name = models.CharField(max_length=100)
-#     last_name = models.CharField(max_length=100)
-#     email = models.EmailField(max_length=50, unique=True)
-#     password = models.CharField(max_length=100)
-#     is_active = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return f"{self.first_name} {self.last_name}"
-
-#     class Meta:
-#         db_table = "back_office_staff"
-
-
 
 class UserData(AbstractUser):
     USER_TYPE_CHOICES = (
@@ -74,17 +60,12 @@ class Sport(models.Model):
 
 
 class BookingHistory(models.Model):
-    PAYMENT_METHODS = (
-        ('1', 'Cash'),
-        ('2', 'Credit Card'),
-        ('3', "Wep"),
-    )   
-    
-    payment_methods = models.CharField(choices=PAYMENT_METHODS, max_length=25)
+
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name="bookings")
     booking_date = models.DateField()
     slot_time = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(UserData, on_delete=models.CASCADE, related_name="booking_history")
+    amount = models.IntegerField()
 
     def __str__(self):
         return f"Booking by {self.user.username} - {self.sport.name} on {self.booking_date}"

@@ -5,12 +5,6 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.forms import UserCreationForm
 
 
-
-from django import forms
-from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm
-from .models import UserData  # Assuming your model is UserData
-
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput(), label="Password")
     password2 = forms.CharField(widget=forms.PasswordInput(), label="Confirm Password")
@@ -52,16 +46,3 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(), label='Password')
 
 
-class AddStaffForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
-
-    class Meta:
-        model = UserData
-        fields = ['first_name','username', 'last_name', 'email', 'password', 'is_active']
-
-    def save(self, commit=True):
-        staff = super().save(commit=False)
-        staff.password = make_password(self.cleaned_data['password'])  # Hash the password here
-        if commit:
-            staff.save()
-        return staff

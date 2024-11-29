@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
-from .forms import *
-from .filters import * 
+from .forms import * 
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
@@ -60,11 +59,11 @@ def login_user(request):
                     
                     # Redirect based on user type (Admin, Staff, or User)
                     if request.user.is_superuser:  # Admin
-                        return redirect('dashboard')
+                        return redirect('#')
                     elif request.user.join_type == '2':  # Staff
                         return redirect('#')  # Replace with your staff dashboard URL
                     elif request.user.join_type == '3':  # User
-                        return redirect('frontend_dashboard')  # Replace with the user-specific URL
+                        return redirect('dashboard')  # Replace with the user-specific URL
                     
                 else:
                     messages.error(request, 'Invalid username or password')
@@ -77,9 +76,6 @@ def login_user(request):
     return render(request, 'login.html', {'form': form})
 
 
-def frontend_dashboard(request):
-    return render(request, "frontend_dashboard.html")
-
 
 def logout_view(request):
     if "user_id" in request.session:
@@ -90,52 +86,19 @@ def logout_view(request):
 
 
 
-
-def add_staff(request):
-    
-    if request.method == "POST":
-        form = AddStaffForm(request.POST)
-        if form.is_valid():
-            staff = form.save(commit=False)
-            staff.user_type = 'BACK_STAFF_USER'  # Set user type to Back Staff
-            staff.save()
-
-            messages.success(request, "Staff member added successfully!")
-            return redirect('add_staff') 
-        else:
-            messages.error(request, "Please correct the errors below.")
-    else:
-        form = AddStaffForm()
-
-    return render(request, "add_staff.html", {"form": form})
-
-
-
 def dashboard(request):
     if request.method == "GET":
         return render(request, "dashboard.html")
-        # return render(request, "frontend_dashboard.html")
     
     else:
         print("wrong")
     return render (request, "login.html" )
 
 
-
-def backstaff_user_list(request):
-    # Get all users with 'BACK_STAFF_USER' role
-    queryset = UserData.objects.filter(user_type='BACK_STAFF_USER')
+def listing(request):
+    if request.method == "GET":
+        return render(request, "listing.html")
     
-    # Apply filters
-    user_filter = UserFilter(request.GET, queryset=queryset)
-    
-    return render(request, 'backstaff_user.html', {'filter': user_filter})
-
-def user_list(request):
-    # Get all users with 'USER' role
-    queryset = UserData.objects.filter(user_type='USER')
-    
-    # Apply filters
-    user_filter = UserFilter(request.GET, queryset=queryset)
-    
-    return render(request, 'user_list.html', {'filter': user_filter})
+    else:
+        print("wrong")
+    return render (request, "login.html" )
