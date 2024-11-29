@@ -9,5 +9,6 @@ urlpatterns = [
     path("dashboard/", dashboard, name="dashboard"),
     path("listing/", listing, name="listing"),
 
+    path('profile/', user_profile, name='profile'),
     
 ]

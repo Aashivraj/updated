@@ -59,9 +59,9 @@ def login_user(request):
                     
                     # Redirect based on user type (Admin, Staff, or User)
                     if request.user.is_superuser:  # Admin
-                        return redirect('#')
+                        return redirect('login')
                     elif request.user.join_type == '2':  # Staff
-                        return redirect('#')  # Replace with your staff dashboard URL
+                        return redirect('login')  # Replace with your staff dashboard URL
                     elif request.user.join_type == '3':  # User
                         return redirect('dashboard')  # Replace with the user-specific URL
                     
@@ -95,8 +95,10 @@ def dashboard(request):
     return render (request, "login.html" )
 
 
-from django.shortcuts import render
-from .models import Sport  # Assuming the Sport model exists and has a 'name' field
+def user_profile(request):
+    user_data = UserData.objects.get(username=request.user)  # Fetch the data of the logged-in user
+    return render(request, 'profile.html', {'user_data': user_data})
+
 
 def listing(request):
     if request.method == "GET":
@@ -114,3 +116,4 @@ def listing(request):
     else:
         print("wrong")
         return render(request, "login.html")
+

@@ -4,6 +4,8 @@
 
 {% block content %}
 <div id="layout-wrapper">
+
+
     <header id="page-topbar">
         <div class="navbar-header">
             <div class="d-flex">
@@ -11,19 +13,19 @@
                 <div class="navbar-brand-box">
                     <a>
                         <span class="logo-sm">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                            <img src="images/logo-sm.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{% static 'images/logo-dark.png' %}" alt="" height="20">
+                            <img src="images/logo-dark.png" alt="" height="20">
                         </span>
                     </a>
 
                     <a class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                            <img src="images/logo-sm.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="20">
+                            <img src="images/ogo-sm.png" alt="" height="20">
                         </span>
                     </a>
                 </div>
@@ -31,11 +33,11 @@
                 <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
                     <i class="fa fa-fw fa-bars"></i>
                 </button>
-            </div>
+           </div>
 
             <div class="d-flex">
                 <div class="dropdown d-inline-block">
-                    <!-- Notifications dropdown -->
+
                 </div>
 
                 <div class="dropdown d-inline-block">
@@ -45,21 +47,22 @@
                         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" style="">
+                        <!-- item-->
                         <a class="dropdown-item" href="{% url "profile" %}"><i
-                            class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span
-                            class="align-middle">View Profile</span></a>
+                                class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span
+                                class="align-middle">View Profile</span></a>
                         <a class="dropdown-item" href="{% url "logout" %}"><i
-                                class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> 
-                                <span class="align-middle">Sign out</span></a>
+                                class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span
+                                class="align-middle">Sign out</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
+    <!-- ========== Left Sidebar Start ========== -->
     <div class="vertical-menu mm-active">
         <div class="navbar-brand-box">
-            <a class="logo logo-dark">
+            <a  class="logo logo-dark">
                 <span class="logo-sm">
                     <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                 </span>
@@ -124,100 +127,47 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
+                
+
                 <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0">Dashboard</h4>
+                    <div class="col-sm-12">
+                        <div class="whitebox">
+                            <div class="section profile-info">
+                                <h3>Personal Information</h3>
+                                <p><strong>Username:</strong> <span>{{ user_data.username }}</span></p>
+                                <p><strong>Full Name:</strong> <span>{{ user_data.first_name }} {{ user_data.last_name }}</span></p>
+                                <p><strong>Gender:</strong> <span>{{ user_data.get_gender_display }}</span></p>
+                                <p><strong>Date of Birth:</strong> <span>{{ user_data.date_of_birth }}</span></p>
+                            </div>
+                    
+                            <div class="section">
+                                <h3>Parent Information</h3>
+                                <p><strong>Parent's Name:</strong> <span>{{ user_data.parent_name }} {{ user_data.parent_surname }}</span></p>
+                                <p><strong>Parent's Phone Number:</strong> <span>{{ user_data.parent_phone_number }}</span></p>
+                            </div>
+                    
+                            <div class="section">
+                                <h3>Education/Employment Information</h3>
+                                <p><strong>School/College/Employment:</strong> <span>{{ user_data.get_school_college_or_employment_display }}</span></p>
+                            </div>
+                            
+                            <div class="section">
+                                <h3>Additional Information</h3>
+                                <p><strong>Diversity:</strong> <span>{{ user_data.diversity }}</span></p>
+                                <p><strong>Discount Card:</strong> <span>{% if user_data.discount_card %}Yes{% else %}No{% endif %}</span></p>
+                            </div>
+                    
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/cricket.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=cricket" class="text-dark">Cricket</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/football.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=football" class="text-dark">Football</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/badminton.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=badminton" class="text-dark">Badminton</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/basketball.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=basketball" class="text-dark">Basketball</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/table-t.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=tabletennis" class="text-dark">Table Tennis</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=gymnastics" class="text-dark">Gymnastics</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=dance" class="text-dark">Dance</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=kickboxing" class="text-dark">Kickboxing</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
+
+
+
+
 
         <footer class="footer">
             <div class="container-fluid">

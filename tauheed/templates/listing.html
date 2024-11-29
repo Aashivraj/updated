@@ -43,17 +43,15 @@
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="images/avatar-4.jpg"
-                            alt="Header Avatar">
-                        <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Marcus</span>
+                        <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Profile</span>
                         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" style="">
                         <!-- item-->
-                        <a class="dropdown-item" href="#"><i
+                        <a class="dropdown-item" href="{% url "profile" %}"><i
                                 class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span
                                 class="align-middle">View Profile</span></a>
-                        <a class="dropdown-item" href="#"><i
+                        <a class="dropdown-item" href="{% url "logout" %}"><i
                                 class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span
                                 class="align-middle">Sign out</span></a>
                     </div>
@@ -152,20 +150,48 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td scope="row">08:00 AM - 11:00 AM</td>
+                                                <td scope="row">08:00 AM - 09:00 AM</td>
                                                 <th scope="col"></th>
-                                                <td><a href="#" class="btn btn-success">Book Now</a></td>
+                                                <td><a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentModal">Book Now</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">09:00 AM - 10:00 AM</td>
+                                                <th scope="col"></th>
+                                                <td><a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentModal">Book Now</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">10:00 AM - 11:00 AM</td>
+                                                <th scope="col"></th>
+                                                <td><a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentModal">Book Now</a></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 {% endif %}
                             {% endfor %}
-
                         </div>
                     </div>
                 </div>
 
 
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="paymentModalLabel">Confirm Payment</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Do you confirm your payment for the booking?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-success" id="confirmPayment">Confirm Payment</button>
+                </div>
+              </div>
             </div>
         </div>
 
