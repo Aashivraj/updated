@@ -50,10 +50,21 @@ class UserData(AbstractUser):
 
 
 class Sport(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    SPORTS_CHOICES = (
+        ('CRICKET', 'Cricket'),
+        ('FOOTBALL', 'Football'),
+        ('BADMINTON', 'Badminton'),
+        ('BASKETBALL', 'Basketball'),
+        ('TABLETENNIS', 'Tabletennis'),
+        ('GYMNASTICS', 'Gymnastics'),
+        ('DANCE', 'Dance'),
+        ('KICKBOXING', 'Kickboxing'),
+    )
+    
+    name = models.CharField(choices=SPORTS_CHOICES, max_length=50, unique=True)
 
     def __str__(self):
-        return self.name
+        return self.name.lower()
 
     class Meta:
         db_table = "sports"
@@ -65,13 +76,11 @@ class BookingHistory(models.Model):
     booking_date = models.DateField()
     slot_time = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(UserData, on_delete=models.CASCADE, related_name="booking_history")
-    amount = models.IntegerField()
+    amount = models.IntegerField(null=True, blank=True)
+    payment_status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Completed', 'Completed')], default='Pending')
 
     def __str__(self):
         return f"Booking by {self.user.username} - {self.sport.name} on {self.booking_date}"
 
     class Meta:
         db_table = "booking_history"
-        
-        
-        

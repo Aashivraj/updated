@@ -63,8 +63,6 @@
     </header>
     <!-- ========== Left Sidebar Start ========== -->
     <div class="vertical-menu mm-active">
-
-        <!-- LOGO -->
         <div class="navbar-brand-box">
             <a  class="logo logo-dark">
                 <span class="logo-sm">
@@ -74,7 +72,6 @@
                     <img src="{% static 'images/osi_logo_white.png' %}" alt="" height="40">
                 </span>
             </a>
-
         </div>
 
         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
@@ -104,12 +101,6 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{% url "listing" %}" class="waves-effect" aria-expanded="false">
-                                                <i class="uil-calender"></i>
-                                                <span>Booking List</span>
-                                            </a>
-                                        </li>
-                                        <li>
                                             <a href="customers.html" class="waves-effect" aria-expanded="false">
                                                 <i class="uil-calender"></i>
                                                 <span>Cancle Membership</span>
@@ -134,200 +125,49 @@
             </div>
         </div>
     </div>
-    <!-- Left Sidebar End -->
 
-
-
-    <!-- ============================================================== -->
-    <!-- Start right Content here -->
-    <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
-
                 <div class="row mb-2">
                     <div class="col-sm-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
                             <h4 class="mb-0"> Date : 25/11/2024</h4>
                         </div>
                     </div>
-
-
                 </div>
 
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="whitebox">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Cricket</th>
-                                        <th scope="col"></th>
-                                       
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                       
-                                        <td scope="row">08:00 AM - 11:00 AM
-                                            
-                                        </td>
-                                      
-                                        <th scope="col"></th>
-                                        
-                                      
-                                        
-                                        <td> <a href="" class="btn btn-success"> Book Now</a>
-                                        </td>
-                                       
-                                    </tr>
-                                </tbody>
-                              
-                               
-                            </table>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Football</th>
-                                        <th scope="col"></th>
-                                       
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                       
-                                        <td scope="row">08:00 AM - 11:00 AM
-                                            
-                                        </td>
-                                      
-                                        <th scope="col"></th>
-                                        
-                                      
-                                        
-                                        <td> <a href="" class="btn btn-success"> Book Now</a></td>
-                                    </tr>
-                                </tbody>
-                              
-                               
-                            </table>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Badminton</th>
-                                        <th scope="col"></th>
-                                       
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                       
-                                        <td scope="row">08:00 AM - 11:00 AM
-                                            
-                                        </td>
-                                      
-                                        <th scope="col"></th>
-                                        
-                                      
-                                        
-                                        <td> <a href="" class="btn btn-success"> Book Now</a></td>
-                                    </tr>
-                                </tbody>
-                              
-                               
-                            </table>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Basketball</th>
-                                        <th scope="col"></th>
-                                       
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                       
-                                        <td scope="row">08:00 AM - 11:00 AM
-                                            
-                                        </td>
-                                      
-                                        <th scope="col"></th>
-                                        
-                                      
-                                        
-                                        <td> <a href="" class="btn btn-success"> Book Now</a></td>
-                                    </tr>
-                                </tbody>
-                              
-                               
-                            </table>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Table Tennis</th>
-                                        <th scope="col"></th>
-                                       
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                       
-                                        <td scope="row">08:00 AM - 11:00 AM
-                                            
-                                        </td>
-                                      
-                                        <th scope="col"></th>
-                                        
-                                      
-                                        
-                                        <td> <a href="" class="btn btn-success"> Book Now</a></td>
-                                    </tr>
-                                </tbody>
-                              
-                               
-                            </table>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Gymnastics</th>
-                                        <th scope="col"></th>
-                                       
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                       
-                                        <td scope="row">08:00 AM - 11:00 AM
-                                            
-                                        </td>
-                                      
-                                        <th scope="col"></th>
-                                        
-                                      
-                                        
-                                        <td> <a href="" class="btn btn-success"> Book Now</a></td>
-                                    </tr>
-                                </tbody>
-                              
-                               
-                            </table>
-                            
+                            {% for sport in sports %}
+                                {% if sport|lower == selected_sport|lower %}
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{{ sport|title }}</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">08:00 AM - 11:00 AM</td>
+                                                <th scope="col"></th>
+                                                <td><a href="#" class="btn btn-success">Book Now</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            {% endfor %}
 
-                          
                         </div>
                     </div>
                 </div>
 
 
-            </div> <!-- container-fluid -->
+            </div>
         </div>
-        <!-- End Page-content -->
 
 
         <footer class="footer">
@@ -336,12 +176,9 @@
                     <div class="col-sm-12 text-center">
                         <script>document.write(new Date().getFullYear())</script> © Frenford.
                     </div>
-
                 </div>
             </div>
         </footer>
     </div>
-    <!-- end main content-->
-
 </div>
 {% endblock %}

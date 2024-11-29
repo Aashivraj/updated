@@ -98,12 +98,6 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{% url "listing" %}" class="waves-effect" aria-expanded="false">
-                                                <i class="uil-calender"></i>
-                                                <span>Booking List</span>
-                                            </a>
-                                        </li>
-                                        <li>
                                             <a href="customers.html" class="waves-effect" aria-expanded="false">
                                                 <i class="uil-calender"></i>
                                                 <span>Cancle Membership</span>
@@ -147,7 +141,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/cricket.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark"> Cricket</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=cricket" class="text-dark">Cricket</a></h4>
                             </div>
                         </div>
                     </div>
@@ -157,7 +151,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/football.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark">Football</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=football" class="text-dark">Football</a></h4>
                             </div>
                         </div>
                     </div>
@@ -167,7 +161,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/badminton.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark"> Badminton</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=badminton" class="text-dark">Badminton</a></h4>
                             </div>
                         </div>
                     </div>
@@ -177,7 +171,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/basketball.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark"> Basketball</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=basketball" class="text-dark">Basketball</a></h4>
                             </div>
                         </div>
                     </div>
@@ -189,7 +183,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/table-t.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark"> Table Tennis</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=tabletennis" class="text-dark">Table Tennis</a></h4>
                             </div>
                         </div>
                     </div>
@@ -199,7 +193,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark">Gymnastics</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=gymnastics" class="text-dark">Gymnastics</a></h4>
                             </div>
                         </div>
                     </div>
@@ -209,7 +203,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark">Dance</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=dance" class="text-dark">Dance</a></h4>
                             </div>
                         </div>
                     </div>
@@ -219,7 +213,7 @@
                                 <div class="icon">
                                     <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
                                 </div>
-                                <h4> <a href="" class="text-dark">kick Boxing</a></h4>
+                                <h4><a href="{% url 'listing' %}?sport=kickboxing" class="text-dark">Kickboxing</a></h4>
                             </div>
                         </div>
                     </div>

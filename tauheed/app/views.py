@@ -95,10 +95,22 @@ def dashboard(request):
     return render (request, "login.html" )
 
 
+from django.shortcuts import render
+from .models import Sport  # Assuming the Sport model exists and has a 'name' field
+
 def listing(request):
     if request.method == "GET":
-        return render(request, "listing.html")
-    
+        # Fetch sports from the database
+        sports = Sport.objects.values_list('name', flat=True)
+
+        # Get the selected sport from the query parameter
+        selected_sport = request.GET.get('sport', None)
+
+        # Debugging logs (check if these values are fetched correctly)
+        print(f"Sports: {list(sports)}")  # Convert QuerySet to list for readability
+        print(f"Selected Sport: {selected_sport}")
+
+        return render(request, "listing.html", {"sports": sports, "selected_sport": selected_sport})
     else:
         print("wrong")
-    return render (request, "login.html" )
+        return render(request, "login.html")
