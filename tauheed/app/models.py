@@ -78,7 +78,8 @@ class BookingHistory(models.Model):
     user = models.ForeignKey(UserData, on_delete=models.CASCADE, related_name="booking_history")
     amount = models.IntegerField(null=True, blank=True)
     payment_status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Completed', 'Completed')], default='Pending')
-
+    booking_status = models.BooleanField(default=False)
+    
     def __str__(self):
         return f"Booking by {self.user.username} - {self.sport.name} on {self.booking_date}"
 

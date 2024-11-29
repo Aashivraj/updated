@@ -4,6 +4,8 @@
 
 {% block content %}
 <div id="layout-wrapper">
+
+
     <header id="page-topbar">
         <div class="navbar-header">
             <div class="d-flex">
@@ -11,19 +13,19 @@
                 <div class="navbar-brand-box">
                     <a>
                         <span class="logo-sm">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                            <img src="images/logo-sm.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{% static 'images/logo-dark.png' %}" alt="" height="20">
+                            <img src="images/logo-dark.png" alt="" height="20">
                         </span>
                     </a>
 
                     <a class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                            <img src="images/logo-sm.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="20">
+                            <img src="images/ogo-sm.png" alt="" height="20">
                         </span>
                     </a>
                 </div>
@@ -31,11 +33,11 @@
                 <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
                     <i class="fa fa-fw fa-bars"></i>
                 </button>
-            </div>
+           </div>
 
             <div class="d-flex">
                 <div class="dropdown d-inline-block">
-                    <!-- Notifications dropdown -->
+
                 </div>
 
                 <div class="dropdown d-inline-block">
@@ -45,21 +47,22 @@
                         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" style="">
+                        <!-- item-->
                         <a class="dropdown-item" href="{% url "profile" %}"><i
-                            class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span
-                            class="align-middle">View Profile</span></a>
+                                class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span
+                                class="align-middle">View Profile</span></a>
                         <a class="dropdown-item" href="{% url "logout" %}"><i
-                                class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> 
-                                <span class="align-middle">Sign out</span></a>
+                                class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span
+                                class="align-middle">Sign out</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
+    <!-- ========== Left Sidebar Start ========== -->
     <div class="vertical-menu mm-active">
         <div class="navbar-brand-box">
-            <a class="logo logo-dark">
+            <a  class="logo logo-dark">
                 <span class="logo-sm">
                     <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                 </span>
@@ -131,94 +134,31 @@
         <div class="page-content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0">Dashboard</h4>
-                        </div>
-                    </div>
-                </div>
+                    <div class="col-sm-12">
+                        <div class="whitebox">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Sport</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for booking in history %}
+                                    <tr>
+                                        <td>{{ booking.sport.name }}</td>
+                                        <td>{{ booking.booking_date }}</td>
+                                        <td>{{ booking.slot_time|date:"H:i A" }}</td>
+                                        <td>£{{ booking.amount }}</td>
+                                        <td>{{ booking.payment_status }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
 
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/cricket.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=cricket" class="text-dark">Cricket</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/football.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=football" class="text-dark">Football</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/badminton.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=badminton" class="text-dark">Badminton</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/basketball.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=basketball" class="text-dark">Basketball</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/table-t.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=tabletennis" class="text-dark">Table Tennis</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=gymnastics" class="text-dark">Gymnastics</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=dance" class="text-dark">Dance</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card reviewbox">
-                            <div class="card-body-info">
-                                <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
-                                </div>
-                                <h4><a href="{% url 'listing' %}?sport=kickboxing" class="text-dark">Kickboxing</a></h4>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -236,4 +176,5 @@
         </footer>
     </div>
 </div>
+
 {% endblock %}

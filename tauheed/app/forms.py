@@ -14,7 +14,7 @@ class UserRegistrationForm(UserCreationForm):
         fields = [
             'first_name', 'last_name', 'username', 'email', 'gender', 'date_of_birth',
             'parent_name', 'parent_surname', 'parent_phone_number', 'school_college_or_employment',
-            'diversity', 'photo_consent', 'term_and_condition_gdpr', 'password1', 'password2'
+            'diversity', 'photo_consent', 'term_and_condition_gdpr', 'password1', 'password2','discount_card'
         ]
     
     def clean(self):

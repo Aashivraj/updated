@@ -99,6 +99,12 @@
                                             </a>
                                         </li>
                                         <li>
+                                            <a href="{% url "booking_list" %}" class="waves-effect" aria-expanded="false">
+                                                <i class="uil-calender"></i>
+                                                <span>Booking History</span>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="customers.html" class="waves-effect" aria-expanded="false">
                                                 <i class="uil-calender"></i>
                                                 <span>Cancle Membership</span>
@@ -133,30 +139,30 @@
                     <div class="col-sm-12">
                         <div class="whitebox">
                             <div class="section profile-info">
-                                <h3>Personal Information</h3>
+                                <h3 style="font-weight: bold;">Personal Information</h3>
                                 <p><strong>Username:</strong> <span>{{ user_data.username }}</span></p>
                                 <p><strong>Full Name:</strong> <span>{{ user_data.first_name }} {{ user_data.last_name }}</span></p>
                                 <p><strong>Gender:</strong> <span>{{ user_data.get_gender_display }}</span></p>
                                 <p><strong>Date of Birth:</strong> <span>{{ user_data.date_of_birth }}</span></p>
                             </div>
-                    
+
                             <div class="section">
-                                <h3>Parent Information</h3>
+                                <h3 style="font-weight: bold;">Parent Information</h3>
                                 <p><strong>Parent's Name:</strong> <span>{{ user_data.parent_name }} {{ user_data.parent_surname }}</span></p>
                                 <p><strong>Parent's Phone Number:</strong> <span>{{ user_data.parent_phone_number }}</span></p>
                             </div>
-                    
+
                             <div class="section">
-                                <h3>Education/Employment Information</h3>
+                                <h3 style="font-weight: bold;">Education/Employment Information</h3>
                                 <p><strong>School/College/Employment:</strong> <span>{{ user_data.get_school_college_or_employment_display }}</span></p>
                             </div>
-                            
+
                             <div class="section">
-                                <h3>Additional Information</h3>
+                                <h3 style="font-weight: bold;">Additional Information</h3>
                                 <p><strong>Diversity:</strong> <span>{{ user_data.diversity }}</span></p>
                                 <p><strong>Discount Card:</strong> <span>{% if user_data.discount_card %}Yes{% else %}No{% endif %}</span></p>
                             </div>
-                    
+
                         </div>
                     </div>
                 </div>
