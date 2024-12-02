@@ -5,7 +5,6 @@
 {% block content %}
 <div id="layout-wrapper">
 
-
     <header id="page-topbar">
         <div class="navbar-header">
             <div class="d-flex">
@@ -13,16 +12,13 @@
                 <div class="navbar-brand-box">
                     <a>
                         <span class="logo-sm">
-                            <img src="images/logo-sm.png" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="images/logo-dark.png" alt="" height="20">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                         </span>
                     </a>
 
                     <a class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="images/logo-sm.png" alt="" height="22">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
                             <img src="images/ogo-sm.png" alt="" height="20">
@@ -47,7 +43,7 @@
                         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" style="">
-                        <!-- item-->
+
                         <a class="dropdown-item" href="{% url "profile" %}"><i
                                 class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span
                                 class="align-middle">View Profile</span></a>
@@ -59,10 +55,11 @@
             </div>
         </div>
     </header>
+
     <!-- ========== Left Sidebar Start ========== -->
     <div class="vertical-menu mm-active">
         <div class="navbar-brand-box">
-            <a  class="logo logo-dark">
+            <a class="logo logo-dark">
                 <span class="logo-sm">
                     <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                 </span>
@@ -89,9 +86,7 @@
 
                                 <!--- Sidemenu -->
                                 <div id="sidebar-menu" class="mm-active">
-                                    <!-- Left Menu Start -->
                                     <ul class="metismenu list-unstyled mm-show" id="side-menu">
-
                                         <li class="">
                                             <a href="{% url "dashboard" %}" class="active" aria-expanded="false">
                                                 <i class="uil-home-alt"></i>
@@ -105,27 +100,18 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="customers.html" class="waves-effect" aria-expanded="false">
+                                            <a href="{% url "cancel_membership" %}" class="waves-effect" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#cancelMembershipModal">
                                                 <i class="uil-calender"></i>
-                                                <span>Cancle Membership</span>
+                                                <span>Cancel Membership</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- Sidebar -->
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="simplebar-placeholder" style="width: auto; height: 1000px;"></div>
-            </div>
-            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                <div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;">
-                </div>
-            </div>
-            <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                <div class="simplebar-scrollbar"
-                    style="height: 687px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
             </div>
         </div>
     </div>
@@ -136,7 +122,10 @@
                 <div class="row mb-2">
                     <div class="col-sm-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0"> Date : 25/11/2024</h4>
+                            <h4 class="mb-0"> Date: <span id="selected-date">{{ today|date:"Y-m-d" }}</span></h4>
+                            <div>
+                                <input type="date" id="date-picker" class="form-control" style="width: auto;" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -146,70 +135,71 @@
                         <div class="whitebox">
                             {% for sport in sports %}
                                 {% if sport|lower == selected_sport|lower %}
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">{{ sport|title }}</th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td scope="row">08:00 AM - 09:00 AM</td>
-                                                <th scope="col"></th>
-                                                <td>
-                                                    <button 
-                                                        class="btn btn-success book-now-btn" 
-                                                        data-slot="08:00 AM - 09:00 AM" 
-                                                        data-sport="{{ sport }}"
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#paymentModal">
-                                                        Book Now
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">09:00 AM - 10:00 AM</td>
-                                                <th scope="col"></th>
-                                                <td>
-                                                    <button 
-                                                        class="btn btn-success book-now-btn" 
-                                                        data-slot="09:00 AM - 10:00 AM" 
-                                                        data-sport="{{ sport }}"
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#paymentModal">
-                                                        Book Now
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">10:00 AM - 11:00 AM</td>
-                                                <th scope="col"></th>
-                                                <td>
-                                                    <button 
-                                                        class="btn btn-success book-now-btn" 
-                                                        data-slot="10:00 AM - 11:00 AM" 
-                                                        data-sport="{{ sport }}"
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#paymentModal">
-                                                        Book Now
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">{{ sport|title }}</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td scope="row">08:00 AM - 09:00 AM</td>
+                                                    <th scope="col"></th>
+                                                    <td>
+                                                        <button 
+                                                            class="btn btn-success book-now-btn" 
+                                                            data-slot="08:00 AM - 09:00 AM" 
+                                                            data-sport="{{ sport }}"
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#paymentModal">
+                                                            Book Now
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">09:00 AM - 10:00 AM</td>
+                                                    <th scope="col"></th>
+                                                    <td>
+                                                        <button 
+                                                            class="btn btn-success book-now-btn" 
+                                                            data-slot="09:00 AM - 10:00 AM" 
+                                                            data-sport="{{ sport }}"
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#paymentModal">
+                                                            Book Now
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">10:00 AM - 11:00 AM</td>
+                                                    <th scope="col"></th>
+                                                    <td>
+                                                        <button 
+                                                            class="btn btn-success book-now-btn" 
+                                                            data-slot="10:00 AM - 11:00 AM" 
+                                                            data-sport="{{ sport }}"
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#paymentModal">
+                                                            Book Now
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 {% endif %}
                             {% endfor %}
                         </div>
                     </div>
                 </div>
 
-
             </div>
         </div>
 
-
+        <!-- Payment Modal -->
         <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -221,31 +211,20 @@
                     <p>Do you confirm your payment for the booking?</p>
                     <form id="confirmBookingForm" method="POST" action="{% url 'confirm_booking' %}">
                         {% csrf_token %}
+                        <input type="hidden" id="selected_date" name="selected_date" />
                         <input type="hidden" name="slot_time" id="slot_time">
                         <input type="hidden" name="sport" id="sport">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="confirmBookingForm" class="btn btn-success">Confirm Payment</button>
+                    <button type="submit" form="confirmBookingForm" class="btn btn-primary">Confirm</button>
                 </div>
               </div>
             </div>
         </div>
-
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <script>document.write(new Date().getFullYear())</script> © Frenford.
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const confirmButton = document.getElementById("confirmPayment");
@@ -255,6 +234,20 @@
             const selectedSport = "{{ selected_sport }}"; // Retrieved from the context
             const selectedDate = new Date().toISOString().split('T')[0]; // Current date
             const selectedSlot = "2024-11-30 08:00:00"; // Replace with selected slot (example format)
+
+
+            fetch("{% url 'confirm_booking' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: new URLSearchParams({
+                    sport: selectedSport,
+                    date: document.getElementById('selected_date').value, // Pass the selected date
+                    slot: selectedSlot
+                })
+            })
 
             // Make an AJAX POST request to the backend
             fetch("{% url 'confirm_booking' %}", {
@@ -295,6 +288,36 @@
             // Set values in the hidden inputs
             document.getElementById('slot_time').value = slotTime;
             document.getElementById('sport').value = sport;
+        });
+    });
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const datePicker = document.getElementById("date-picker");
+        const selectedDateSpan = document.getElementById("selected-date");
+    
+        // Set the default value of the date picker to today
+        const today = new Date().toISOString().split("T")[0];
+        datePicker.value = today;
+    
+        // Update the displayed date when the date picker changes
+        datePicker.addEventListener("change", function () {
+            selectedDateSpan.textContent = datePicker.value;
+        });
+    
+        // Update booking button logic to use the selected date
+        document.querySelectorAll('.book-now-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const slotTime = this.getAttribute('data-slot');
+                const sport = this.getAttribute('data-sport');
+                const selectedDate = datePicker.value;
+    
+                // Set hidden input values (if any)
+                document.getElementById('slot_time').value = slotTime;
+                document.getElementById('sport').value = sport;
+                document.getElementById('selected_date').value = selectedDate; // Pass selected date to the view
+            });
         });
     });
     

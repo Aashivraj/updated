@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('confirm-booking/', confirm_booking, name='confirm_booking'),
     path('booking_list/', booking_list, name='booking_list'),
+    
+    path('cancel_membership/', cancel_membership, name='cancel_membership'),
 ]

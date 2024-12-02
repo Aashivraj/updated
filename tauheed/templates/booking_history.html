@@ -105,7 +105,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="customers.html" class="waves-effect" aria-expanded="false">
+                                            <a href="{% url "cancel_membership" %}" class="waves-effect" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#cancelMembershipModal">
                                                 <i class="uil-calender"></i>
                                                 <span>Cancle Membership</span>
                                             </a>
@@ -130,34 +130,62 @@
         </div>
     </div>
 
+    <!-- Cancel Membership Modal -->
+    <div class="modal fade" id="cancelMembershipModal" tabindex="-1" aria-labelledby="cancelMembershipModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelMembershipModalLabel">Cancel Membership</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="cancelMembershipForm" method="POST" action="{% url 'cancel_membership' %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <p>Are you sure you want to cancel your membership? This action cannot be undone.</p>
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">Reason for Cancelation</label>
+                            <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Confirm Cancelation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="whitebox">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Sport</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for booking in history %}
-                                    <tr>
-                                        <td>{{ booking.sport.name }}</td>
-                                        <td>{{ booking.booking_date }}</td>
-                                        <td>{{ booking.slot_time|date:"H:i A" }}</td>
-                                        <td>£{{ booking.amount }}</td>
-                                        <td>{{ booking.payment_status }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                            <div class="table-responsive"> 
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sport</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for booking in history %}
+                                        <tr>
+                                            <td>{{ booking.sport.name }}</td>
+                                            <td>{{ booking.booking_date }}</td>
+                                            <td>{{ booking.slot_time|date:"H:i A" }}</td>
+                                            <td>£{{ booking.amount }}</td>
+                                            <td>{{ booking.payment_status }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>

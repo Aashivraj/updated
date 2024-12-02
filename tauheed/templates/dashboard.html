@@ -13,21 +13,8 @@
                         <span class="logo-sm">
                             <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                         </span>
-                        <span class="logo-lg">
-                            <img src="{% static 'images/logo-dark.png' %}" alt="" height="20">
-                        </span>
-                    </a>
-
-                    <a class="logo logo-light">
-                        <span class="logo-sm">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="20">
-                        </span>
                     </a>
                 </div>
-
                 <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
                     <i class="fa fa-fw fa-bars"></i>
                 </button>
@@ -35,7 +22,6 @@
 
             <div class="d-flex">
                 <div class="dropdown d-inline-block">
-                    <!-- Notifications dropdown -->
                 </div>
 
                 <div class="dropdown d-inline-block">
@@ -102,7 +88,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="customers.html" class="waves-effect" aria-expanded="false">
+                                            <a href="{% url "cancel_membership" %}" class="waves-effect" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#cancelMembershipModal">
                                                 <i class="uil-calender"></i>
                                                 <span>Cancle Membership</span>
                                             </a>
@@ -123,6 +109,32 @@
             <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
                 <div class="simplebar-scrollbar"
                     style="height: 687px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Membership Modal -->
+    <div class="modal fade" id="cancelMembershipModal" tabindex="-1" aria-labelledby="cancelMembershipModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelMembershipModalLabel">Cancel Membership</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="cancelMembershipForm" method="POST" action="{% url 'cancel_membership' %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <p>Are you sure you want to cancel your membership? This action cannot be undone.</p>
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">Reason for Cancelation</label>
+                            <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Confirm Cancelation</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -205,7 +217,7 @@
                         <div class="card reviewbox">
                             <div class="card-body-info">
                                 <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
+                                    <img src="{% static 'images/dance.png' %}" class="img-fluid" alt="review">
                                 </div>
                                 <h4><a href="{% url 'listing' %}?sport=dance" class="text-dark">Dance</a></h4>
                             </div>
@@ -215,7 +227,7 @@
                         <div class="card reviewbox">
                             <div class="card-body-info">
                                 <div class="icon">
-                                    <img src="{% static 'images/gym.png' %}" class="img-fluid" alt="review">
+                                    <img src="{% static 'images/kickboxing.png' %}" class="img-fluid" alt="review">
                                 </div>
                                 <h4><a href="{% url 'listing' %}?sport=kickboxing" class="text-dark">Kickboxing</a></h4>
                             </div>
