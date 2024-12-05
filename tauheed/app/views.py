@@ -27,14 +27,11 @@ def register(request):
                 return redirect('login') 
             else:
                 messages.error(request, "Passwords do not match.")
-        else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f"{field.capitalize()}: {error}")
     else:
         form = UserRegistrationForm()
 
     return render(request, 'register.html', {'form': form})
+
 
 
 

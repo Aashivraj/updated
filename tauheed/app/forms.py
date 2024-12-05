@@ -14,31 +14,31 @@ class UserRegistrationForm(UserCreationForm):
         fields = [
             'first_name', 'last_name', 'username', 'email', 'gender', 'date_of_birth',
             'parent_name', 'parent_surname', 'parent_phone_number', 'school_college_or_employment',
-            'diversity', 'photo_consent', 'term_and_condition_gdpr', 'password1', 'password2','discount_card'
+            'diversity', 'photo_consent', 'term_and_condition_gdpr', 'password1', 'password2', 'discount_card'
         ]
-    
+        
     def clean(self):
         cleaned_data = super().clean()
 
-        # Check for empty required fields
+        # Required fields validation
         required_fields = [
-            'first_name', 'last_name', 'username', 'email', 'gender', 'date_of_birth',
-            'parent_name', 'parent_surname', 'parent_phone_number', 'school_college_or_employment',
-            'diversity', 'photo_consent', 'term_and_condition_gdpr'
+            'first_name', 'email', 'gender', 'photo_consent', 'term_and_condition_gdpr'
         ]
         
+        # Checking if the required fields are empty
         for field in required_fields:
             value = cleaned_data.get(field)
             if not value:
                 self.add_error(field, f"{field.replace('_', ' ').capitalize()} cannot be empty.")
         
-        # Password validation
+        # Password validation (ensure both passwords match)
         password1 = cleaned_data.get('password1')
         password2 = cleaned_data.get('password2')
         if password1 and password2 and password1 != password2:
             self.add_error('password2', "Passwords do not match.")
-        
+
         return cleaned_data
+
 
 # Login form
 class LoginForm(forms.Form):
